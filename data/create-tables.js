@@ -21,7 +21,7 @@ async function run() {
                     id SERIAL PRIMARY KEY NOT NULL,
                     name VARCHAR(512) NOT NULL,
                     description VARCHAR(512) NOT NULL,
-                    realistic VARCHAR(12) NOT NULL,
+                    realistic BOOLEAN NOT NULL,
                     type VARCHAR(30) NOT NULL
             );
         `);

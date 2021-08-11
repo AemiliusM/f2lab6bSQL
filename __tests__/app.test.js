@@ -3,7 +3,7 @@ require('dotenv').config();
 const { execSync } = require('child_process');
 
 const fakeRequest = require('supertest');
-const { request } = require('../lib/app');
+// const { request } = require('../lib/app');
 const app = require('../lib/app');
 const client = require('../lib/client');
 const powers = require('../data/powers.js');
@@ -46,49 +46,12 @@ describe('app routes', () => {
 
     test('returns powers', async() => {
 
-      const expectation = [
-        {
-          id: 1,
-          name: 'Super Speed',
-          description: 'Able to run near or at speed of light',
-          realistic: false,
-          type: 'physical'
-        },
-        {
-          id: 2,
-          name: 'Fly',
-          description: 'To be able to fly',
-          realistic: true,
-          type: 'teleknetic'
-        },
-        {
-          id: 3,
-          name: 'Eternal-life',
-          description: 'Live forever',
-          realistic: false,
-          type: 'physical'
-        },
-        {
-          id: 4,
-          name: 'Give life',
-          description:'be able to give life to inanimate objects',
-          realistic: true,
-          type: 'super natural'
-        }, 
-        {
-          id: 5,
-          name: 'Heal through time reversion',
-          description: 'Be able to heal anything by turning back time in a specific area',
-          realistic: false,
-          type: 'space/time'
-        }
-      ];
+      const expectation = powers;
 
       const data = await fakeRequest(app)
         .get('/powers')
         .expect('Content-Type', /json/)
         .expect(200);
-      console.log(data, 'Something!!');
       expect(data.body).toEqual(expectation);
 
       
@@ -109,7 +72,6 @@ describe('app routes', () => {
         .get('/powers/1')
         .expect('Content-Type', /json/)
         .expect(200);
-      console.log(data, 'Something!!');
       expect(data.body).toEqual(expectation);
     
     });

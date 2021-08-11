@@ -90,6 +90,28 @@ describe('app routes', () => {
         .expect(200);
       console.log(data, 'Something!!');
       expect(data.body).toEqual(expectation);
+
+      
+    });
+    test('returns powers/id endpoint', async() => {
+  
+      const expectation = [
+        {
+          id: 1,
+          name: 'Super Speed',
+          description: 'Able to run near or at speed of light',
+          realistic: false,
+          type: 'physical'
+        }
+      ];
+  
+      const data = await fakeRequest(app)
+        .get('/powers/1')
+        .expect('Content-Type', /json/)
+        .expect(200);
+      console.log(data, 'Something!!');
+      expect(data.body).toEqual(expectation);
+    
     });
   });
 });

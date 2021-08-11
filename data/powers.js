@@ -1,39 +1,39 @@
-const data = [
+const powers = [
   {
     id: 1,
     name: 'Super Speed',
-    desc: 'Able to run near or at speed of light',
+    description: 'Able to run near or at speed of light',
     realistic: false,
     type: 'physical'
   },
   {
     id: 2,
     name: 'Fly',
-    desc: 'To be able to fly',
+    description: 'To be able to fly',
     realistic: true,
     type: 'teleknetic'
   },
   {
     id: 3,
     name: 'Eternal-life',
-    desc: 'Live forever',
+    description: 'Live forever',
     realistic: false,
     type: 'physical'
   },
   {
     id: 4,
     name: 'Give life',
-    desc:'be able to give life to inanimate objects',
+    description:'be able to give life to inanimate objects',
     realistic: true,
     type: 'super natural'
   }, 
   {
     id: 5,
     name: 'Heal through time reversion',
-    desc: 'Be able to heal anything by turning back time in a specific area',
-    realistic: true,
+    description: 'Be able to heal anything by turning back time in a specific area',
+    realistic: false,
     type: 'space/time'
   }
 ];
 
-module.exports = data;
+module.exports = powers;

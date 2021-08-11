@@ -3,9 +3,10 @@ require('dotenv').config();
 const { execSync } = require('child_process');
 
 const fakeRequest = require('supertest');
+const { request } = require('../lib/app');
 const app = require('../lib/app');
 const client = require('../lib/client');
-
+const powers = require('../data/powers.js');
 describe('app routes', () => {
   describe('routes', () => {
     let token;
@@ -26,6 +27,18 @@ describe('app routes', () => {
   
     afterAll(done => {
       return client.end(done);
+    });
+
+    it('gets the powers endpoint', async () => {
+      const response = await request.get('/powers');
+      expect(response.status).toBe(200);
+      expect(response.body).toBe(powers[0]);
+    });
+
+    it('gets the powers show endpoint', async () => {
+      const response = await request.get('/powers/1');
+      expect(response.status).toBe(200);
+      expect(response.body).toBe(powers[0]);
     });
 
     test('returns animals', async() => {

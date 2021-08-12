@@ -29,21 +29,6 @@ describe('app routes', () => {
       return client.end(done);
     });
 
-    // it('gets the powers endpoint', async () => {
-    //   const response = await request.get('/powers');
-    //   expect(response.status).toBe(200);
-    //   expect(response.body).toBe(powers[0]);
-    // });
-
-
-
-
-    // it('gets the powers show endpoint', async () => {
-    //   const response = await request.get('/powers/1');
-    //   expect(response.status).toBe(200);
-    //   expect(response.body).toBe(powers[0]);
-    // });
-
     test('returns powers', async() => {
 
       const expectation = powers;
@@ -75,5 +60,42 @@ describe('app routes', () => {
       expect(data.body).toEqual(expectation);
     
     });
+
+    test('post /powers creates new power', async () => {
+      const newPower = {
+        id: 6,
+        name: 'Full Energy Spectrum eyes',
+        description: 'Be able to see all spectrums of energy',
+        realistic: true,
+        type: 'physical'
+      };
+
+      const data = await fakeRequest(app)
+        .post('/powers')
+        .send(newPower)
+        .expect('Content-Type', /json/)
+        .expect(200);
+      expect(data.body.name).toEqual(newPower.name);
+      expect(data.body.id).toBeGreaterThan(0);
+
+    });
+
+    test('put /powers/:id updates powers', async () => {
+      const updatedPower = {
+        
+        name: 'Take life',
+        description: 'Be able to take life from any animated entity',
+        realistic: true,
+        type: 'super natural'
+      };
+      const data = await fakeRequest(app)
+        .put('/powers/4')
+        .send(updatedPower)
+        .expect('Content-Type', /json/)
+        .expect(200);
+      expect(data.body.name).toEqual(updatedPower.name);
+      expect(data.body.description).toEqual(updatedPower.description);
+    });
+
   });
 });

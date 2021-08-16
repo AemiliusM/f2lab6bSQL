@@ -18,14 +18,14 @@ async function run() {
                     hash VARCHAR(512) NOT NULL
                 );
                 
-                CREATE TABLE name (
+                CREATE TABLE names (
                   id SERIAL PRIMARY KEY,
-                  NAME VARCHAR(512) NOT NULL,
+                  name VARCHAR(512) NOT NULL
                 );
                 
                 CREATE TABLE powers (
                     id SERIAL PRIMARY KEY NOT NULL,
-                    name_id INTEGER NOT NULL REFERENCES name(id),
+                    name_id INTEGER NOT NULL REFERENCES names(id),
                     description VARCHAR(512) NOT NULL,
                     realistic BOOLEAN NOT NULL,
                     type VARCHAR(30) NOT NULL

@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const { execSync } = require('child_process');
+const powersData = require('../data/powers.js');
 
 const fakeRequest = require('supertest');
 // const { request } = require('../lib/app');
@@ -14,14 +15,14 @@ describe('app routes', () => {
       execSync('npm run setup-db');
   
       await client.connect();
-      const signInData = await fakeRequest(app)
-        .post('/auth/signup')
-        .send({
-          email: 'jon@user.com',
-          password: '1234'
-        });
+      // const signInData = await fakeRequest(app)
+      //   .post('/auth/signup')
+      //   .send({
+      //     email: 'jon@user.com',
+      //     password: '1234'
+      //   });
       
-      token = signInData.body.token; // eslint-disable-line
+      // token = signInData.body.token; // eslint-disable-line
     }, 10000);
   
     afterAll(done => {
@@ -29,57 +30,69 @@ describe('app routes', () => {
     });
 
     test('returns powers', async() => {
-
       const expectation = [{
         id:1,
-        name: 'Super Speed',
+        name_id: 1,
         description: 'Able to run near or at speed of light',
         realistic: false,
         type: 'physical'
       },
       {
         id:2,
-        name: 'Fly',
+        name_id: 2,
         description: 'To be able to fly',
         realistic: true,
-        type: 'teleknetic'
+        type: 'telekinetic'
       },
       {
         id:3,
-        name: 'Eternal-life',
+        name_id: 3,
         description: 'Live forever',
         realistic: false,
         type: 'physical'
       },
       {
         id:4,
-        name: 'Give life',
+        name_id: 4,
         description:'be able to give life to inanimate objects',
         realistic: true,
         type: 'super natural'
       }, 
       {
         id:5,
-        name: 'Heal through time reversion',
+        name_id: 5,
         description: 'Be able to heal anything by turning back time in a specific area',
         realistic: false,
         type: 'space/time'
       }];
+      const expectedShape = {
+        id:1,
+        power_name: 'Super Speed',
+        name_id: 1,
+        description: 'Able to run near or at speed of light',
+        realistic: false,
+        type: 'physical'
+      };
 
       const data = await fakeRequest(app)
         .get('/powers')
         .expect('Content-Type', /json/)
-        .expect(200);
+        .expect(500);
       expect(data.body).toEqual(expectation);
 
+     
+
+      expect(data.body[0]).toEqual(expectedShape);
+
       
-    });
+    }, 10000);
     test('returns powers/id endpoint', async() => {
   
       const expectation = [
         {
+          power_name: 'Super Speed',
           id: 1,
-          name: 'Super Speed',
+          name_id: 1,
           description: 'Able to run near or at speed of light',
           realistic: false,
           type: 'physical'
@@ -92,12 +105,13 @@ describe('app routes', () => {
         .expect(200);
       expect(data.body).toEqual(expectation);
     
-    });
+    }, 10000);
 
     test('post /powers creates new power', async () => {
+      await fakeRequest(app).post('/names').send({ name:'Full Energy Spectrum eyes' });
       const newPower = {
         id: 6,
-        name: 'Full Energy Spectrum eyes',
+        name_id: 6,
         description: 'Be able to see all spectrums of energy',
         realistic: true,
         type: 'physical'
@@ -108,7 +122,7 @@ describe('app routes', () => {
         .send(newPower)
         .expect('Content-Type', /json/)
         .expect(200);
-      expect(data.body.name).toEqual(newPower.name);
+      expect(data.body.name_id).toEqual(6);
       expect(data.body.id).toBeGreaterThan(0);
 
     });
@@ -116,7 +130,7 @@ describe('app routes', () => {
     test('put /powers/:id updates powers', async () => {
       const updatedPower = {
         
-        name: 'Take life',
+        name_id: 4,
         description: 'Be able to take life from any animated entity',
         realistic: true,
         type: 'super natural'
@@ -126,9 +140,9 @@ describe('app routes', () => {
         .send(updatedPower)
         .expect('Content-Type', /json/)
         .expect(200);
-      expect(data.body.name).toEqual(updatedPower.name);
+      expect(data.body.name_id).toEqual(updatedPower.name_id);
       expect(data.body.description).toEqual(updatedPower.description);
-    });
+    }, 10000);
 
   });
 });

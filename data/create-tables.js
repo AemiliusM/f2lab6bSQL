@@ -16,10 +16,16 @@ async function run() {
                     id SERIAL PRIMARY KEY,
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
-                );           
+                );
+                
+                CREATE TABLE name (
+                  id SERIAL PRIMARY KEY,
+                  NAME VARCHAR(512) NOT NULL,
+                );
+                
                 CREATE TABLE powers (
                     id SERIAL PRIMARY KEY NOT NULL,
-                    name VARCHAR(512) NOT NULL,
+                    name_id INTEGER NOT NULL REFERENCES name(id),
                     description VARCHAR(512) NOT NULL,
                     realistic BOOLEAN NOT NULL,
                     type VARCHAR(30) NOT NULL

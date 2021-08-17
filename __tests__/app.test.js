@@ -87,7 +87,7 @@ describe('app routes', () => {
     }, 10000);
     test('returns powers/id endpoint', async() => {
   
-      const expectation = [
+      const expectation = 
         {
           power_name: 'Super Speed',
           id: 1,
@@ -95,8 +95,7 @@ describe('app routes', () => {
           description: 'Able to run near or at speed of light',
           realistic: false,
           type: 'physical'
-        }
-      ];
+        };
   
       const data = await fakeRequest(app)
         .get('/powers/1')

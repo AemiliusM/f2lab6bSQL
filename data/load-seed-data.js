@@ -13,12 +13,12 @@ async function run() {
     await client.connect();
 
     await Promise.all(
-      nameData.map(name => {
+      nameData.map(names => {
         return client.query(`
        INSERT INTO names (name)
        VALUES ($1)
        RETURNING *;
-       `, [name.name]);
+       `, [names.name]);
       })
     );
 

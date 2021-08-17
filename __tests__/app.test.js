@@ -32,35 +32,35 @@ describe('app routes', () => {
     test('returns powers', async() => {
       const expectation = [{
         id:1,
-        name_id: 1,
+        power_name:'Super Speed',
         description: 'Able to run near or at speed of light',
         realistic: false,
         type: 'physical'
       },
       {
         id:2,
-        name_id: 2,
+        power_name:'Fly',
         description: 'To be able to fly',
         realistic: true,
         type: 'telekinetic'
       },
       {
         id:3,
-        name_id: 3,
+        power_name:'Eternal-life',
         description: 'Live forever',
         realistic: false,
         type: 'physical'
       },
       {
         id:4,
-        name_id: 4,
+        power_name:'Give life',
         description:'be able to give life to inanimate objects',
         realistic: true,
         type: 'super natural'
       }, 
       {
         id:5,
-        name_id: 5,
+        power_name:'Heal through time reversion',
         description: 'Be able to heal anything by turning back time in a specific area',
         realistic: false,
         type: 'space/time'
@@ -68,7 +68,6 @@ describe('app routes', () => {
       const expectedShape = {
         id:1,
         power_name: 'Super Speed',
-        name_id: 1,
         description: 'Able to run near or at speed of light',
         realistic: false,
         type: 'physical'
@@ -77,7 +76,7 @@ describe('app routes', () => {
       const data = await fakeRequest(app)
         .get('/powers')
         .expect('Content-Type', /json/)
-        .expect(500);
+        .expect(200);
       expect(data.body).toEqual(expectation);
 
      

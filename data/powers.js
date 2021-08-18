@@ -1,33 +1,33 @@
 const powers = [
   {
-    name_id: 1,
+    power_name: 'Super Speed',
     description: 'Able to run near or at speed of light',
     realistic: false,
-    type: 'physical'
+    type_id: 1
   },
   {
-    name_id: 2,
+    power_name: 'Fly',
     description: 'To be able to fly',
     realistic: true,
-    type: 'telekinetic'
+    type_id: 2
   },
   {
-    name_id: 3,
+    power_name: 'Eternal Life',
     description: 'Live forever',
     realistic: false,
-    type: 'physical'
+    type_id: 1
   },
   {
-    name_id: 4,
+    power_name: 'Give Life',
     description:'be able to give life to inanimate objects',
     realistic: true,
-    type: 'super natural'
+    type_id: 3
   }, 
   {
-    name_id: 5,
+    power_name: 'Heal Through Time Reversion',
     description: 'Be able to heal anything by turning back time in a specific area',
     realistic: false,
-    type: 'space/time'
+    type_id: 4
   }
 ];
 

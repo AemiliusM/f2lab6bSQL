@@ -1,7 +1,7 @@
 const client = require('../lib/client');
 // import our seed data:
 const powers = require('./powers.js');
-const nameData = require('./name.js');
+const typeData = require('./type.js');
 // const usersData = require('./users.js');
 const { getEmoji } = require('../lib/emoji.js');
 
@@ -13,22 +13,22 @@ async function run() {
     await client.connect();
 
     await Promise.all(
-      nameData.map(names => {
+      typeData.map(types => {
         return client.query(`
-       INSERT INTO names (name)
+       INSERT INTO types (type)
        VALUES ($1)
        RETURNING *;
-       `, [names.name]);
+       `, [types.type]);
       })
     );
 
     await Promise.all(
       powers.map(powers => {
         return client.query(`
-                    INSERT INTO powers (name_id, description, realistic, type)
+                    INSERT INTO powers (power_name, description, realistic, type_id)
                     VALUES ($1, $2, $3, $4);
                 `,
-        [powers.name_id, powers.description, powers.realistic, powers.type]);
+        [powers.power_name, powers.description, powers.realistic, powers.type_id]);
       })
     );
     

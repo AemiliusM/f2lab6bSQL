@@ -31,46 +31,46 @@ describe('app routes', () => {
 
     test('returns powers', async() => {
       const expectation = [{
-        id:1,
+        id: 1,
         power_name:'Super Speed',
         description: 'Able to run near or at speed of light',
         realistic: false,
-        type: 'physical'
+        type_id: 1
       },
       {
-        id:2,
+        id: 2,
         power_name:'Fly',
-        description: 'To be able to fly',
+        description:'To be able to fly',
         realistic: true,
-        type: 'telekinetic'
+        type_id: 2
       },
       {
-        id:3,
-        power_name:'Eternal-life',
-        description: 'Live forever',
+        id: 3,
+        power_name:'Eternal life',
+        description:'Live forever',
         realistic: false,
-        type: 'physical'
+        type_id: 1
       },
       {
-        id:4,
+        id: 4,
         power_name:'Give life',
         description:'be able to give life to inanimate objects',
         realistic: true,
-        type: 'super natural'
+        type_id: 3
       }, 
       {
-        id:5,
+        id: 5,
         power_name:'Heal through time reversion',
-        description: 'Be able to heal anything by turning back time in a specific area',
+        description:'Be able to heal anything by turning back time in a specific area',
         realistic: false,
-        type: 'space/time'
+        type_id: 4
       }];
       const expectedShape = {
-        id:1,
-        power_name: 'Super Speed',
-        description: 'Able to run near or at speed of light',
+        id: 1,
+        power_name:'Super Speed',
+        description:'Able to run near or at speed of light',
         realistic: false,
-        type: 'physical'
+        type_id: 1
       };
 
       const data = await fakeRequest(app)
@@ -88,14 +88,13 @@ describe('app routes', () => {
     test('returns powers/id endpoint', async() => {
   
       const expectation = 
-        {
-          power_name: 'Super Speed',
-          id: 1,
-          name_id: 1,
-          description: 'Able to run near or at speed of light',
-          realistic: false,
-          type: 'physical'
-        };
+      {
+        id: 1,
+        power_name: 'Super Speed',
+        description: 'Able to run near or at speed of light',
+        realistic: false,
+        type_id: 1
+      };
   
       const data = await fakeRequest(app)
         .get('/powers/1')
@@ -108,11 +107,11 @@ describe('app routes', () => {
     test('post /powers creates new power', async () => {
       await fakeRequest(app).post('/names').send({ name:'Full Energy Spectrum eyes' });
       const newPower = {
-        id: 6,
-        name_id: 6,
-        description: 'Be able to see all spectrums of energy',
-        realistic: true,
-        type: 'physical'
+        id:6,
+        power_name: 'Full Spectrum Energy Eyes',
+        description: 'Able to run near or at speed of light',
+        realistic: false,
+        type_id: 1
       };
 
       const data = await fakeRequest(app)
@@ -128,10 +127,11 @@ describe('app routes', () => {
     test('put /powers/:id updates powers', async () => {
       const updatedPower = {
         
-        name_id: 4,
-        description: 'Be able to take life from any animated entity',
+        id: 4,
+        power_name: 'Take Life',
+        description:'be able to take life from an animated objects',
         realistic: true,
-        type: 'super natural'
+        type_id: 3
       };
       const data = await fakeRequest(app)
         .put('/powers/4')

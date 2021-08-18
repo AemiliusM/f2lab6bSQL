@@ -30,41 +30,43 @@ describe('app routes', () => {
     });
 
     test('returns powers', async() => {
-      const expectation = [{
-        id: 1,
-        power_name:'Super Speed',
-        description: 'Able to run near or at speed of light',
-        realistic: false,
-        power_type: 'physical'
-      },
-      {
-        id: 2,
-        power_name:'Fly',
-        description:'To be able to fly',
-        realistic: true,
-        power_type: 'telekinetic'
-      },
-      {
-        id: 3,
-        power_name:'Eternal life',
-        description:'Live forever',
-        realistic: false,
-        power_type: 'physical'
-      },
-      {
-        id: 4,
-        power_name:'Give life',
-        description:'be able to give life to inanimate objects',
-        realistic: true,
-        power_type: 'super natural'
-      }, 
-      {
-        id: 5,
-        power_name:'Heal through time reversion',
-        description:'Be able to heal anything by turning back time in a specific area',
-        realistic: false,
-        power_type: 'space/time'
-      }];
+      const expectation = [
+        {
+          'id': 1,
+          'power_name': 'Super Speed',
+          'description': 'Able to run near or at speed of light',
+          'realistic': false,
+          'power_type': 'physical'
+        },
+        {
+          'id': 2,
+          'power_name': 'Fly',
+          'description': 'To be able to fly',
+          'realistic': true,
+          'power_type': 'telekinetic'
+        },
+        {
+          'id': 3,
+          'power_name': 'Eternal Life',
+          'description': 'Live forever',
+          'realistic': false,
+          'power_type': 'physical'
+        },
+        {
+          'id': 4,
+          'power_name': 'Give Life',
+          'description': 'be able to give life to inanimate objects',
+          'realistic': true,
+          'power_type': 'super natural'
+        },
+        {
+          'id': 5,
+          'power_name': 'Heal Through Time Reversion',
+          'description': 'Be able to heal anything by turning back time in a specific area',
+          'realistic': false,
+          'power_type': 'space/time'
+        }
+      ];
       const expectedShape = {
         id: 1,
         power_name:'Super Speed',
@@ -107,11 +109,11 @@ describe('app routes', () => {
     test('post /powers creates new power', async () => {
       await fakeRequest(app).post('/types').send({ type:'physical' });
       const newPower = {
-        id:6,
+        
         power_name: 'Full Spectrum Energy Eyes',
         description: 'Able to run near or at speed of light',
         realistic: false,
-        power_type: 'physical'
+        type_id: 1
       };
 
       const data = await fakeRequest(app)
@@ -119,7 +121,8 @@ describe('app routes', () => {
         .send(newPower)
         .expect('Content-Type', /json/)
         .expect(200);
-      expect(data.body.name_id).toEqual(6);
+      console.log(data.body);
+      expect(data.body.power_name).toEqual(newPower.power_name);
       expect(data.body.id).toBeGreaterThan(0);
 
     });
@@ -131,14 +134,15 @@ describe('app routes', () => {
         power_name: 'Take Life',
         description:'be able to take life from an animated objects',
         realistic: true,
-        power_type: 'super natural'
+        type_id: 3
       };
       const data = await fakeRequest(app)
         .put('/powers/4')
         .send(updatedPower)
         .expect('Content-Type', /json/)
         .expect(200);
-      expect(data.body.name_id).toEqual(updatedPower.name_id);
+      console.log(data.body);
+      expect(data.body.power_name).toEqual(updatedPower.power_name);
       expect(data.body.description).toEqual(updatedPower.description);
     }, 10000);
 
